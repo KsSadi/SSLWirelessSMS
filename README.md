@@ -1,6 +1,6 @@
 <br>
 <a href="https://github.com/KsSadi/SSLWirelessSMS">
-<img style="width: 100%; max-width: 100%;" alt="SSL Wireless SMS Laravel Package" src="/image/ssl-wireless-logo.png" >
+<img style="width: 100%; max-width: 100%;" alt="SSL Wireless SMS Laravel Package" src="/image/ssl-wireless-banner.png" >
 </a>
 
 # SSL Wireless SMS Laravel Package
