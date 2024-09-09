@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'domain' => env('SSLWIRELESS_DOMAIN', 'https://sms.sslwireless.com'),
+    'domain' => env('SSLWIRELESS_DOMAIN', 'https://smsplus.sslwireless.com'),
 
     /*
     |--------------------------------------------------------------------------

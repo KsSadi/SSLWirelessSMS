@@ -46,11 +46,15 @@ A Laravel package for integrating SSL Wireless SMS service into your Laravel app
    ```bash
    php artisan vendor:publish --provider="Kssadi\Sslwirelesssms\SslwirelesssmsServiceProvider" --tag="config"
    ```
-3. **Publish the controller:**
 
-      ```bash
-   php artisan vendor:publish --provider="Kssadi\Sslwirelesssms\SslwirelesssmsServiceProvider" --tag="controller"
-   ```
+[//]: # (3. **Publish the controller:**)
+
+[//]: # ()
+[//]: # (      ```bash)
+
+[//]: # (   php artisan vendor:publish --provider="Kssadi\Sslwirelesssms\SslwirelesssmsServiceProvider" --tag="controller")
+
+[//]: # (   ```)
     
 ## Configuration
 Add your SSL Wireless SMS credentials to the config/sslwireless.php file:
@@ -68,8 +72,6 @@ Add these values to your .env file:
 ```bash
 SSLWIRELESS_API_TOKEN=your_api_token
 SSLWIRELESS_SID=your_sid
-SSLWIRELESS_DOMAIN=your_domain
-SSLWIRELESS_MESSAGE_TYPE=your_message_type
 
 ```
 

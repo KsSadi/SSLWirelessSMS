@@ -1,9 +1,8 @@
 <?php
 
-namespace KsSadi\SSLWirelessSMS\Facades;
+namespace KsSadi\SSLWirelessSMS;
 
 use Illuminate\Support\ServiceProvider;
-use KsSadi\SSLWirelessSMS\SslWirelessSMSClient;
 
 class SSLWirelessSMSServiceProvider extends ServiceProvider
 {
