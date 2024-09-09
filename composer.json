@@ -9,6 +9,7 @@
         "SSLWireless Bulk SMS"
     ],
     "type": "library",
+    "version": "1.0.0",
     "homepage": "https://github.com/kssadi/sslwirelesssms",
     "license": "MIT",
     "authors": [
@@ -48,6 +49,6 @@
             "@php artisan package:discover --ansi"
         ]
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
