@@ -9,9 +9,12 @@
    
 A Laravel package for integrating SSL Wireless SMS service into your Laravel applications. Easily send single, bulk, and dynamic SMS messages using this package.
 
+![GitHub Repo stars](https://img.shields.io/github/stars/KsSadi/SSLWirelessSMS.svg)
 [![Downloads](https://img.shields.io/packagist/dt/kssadi/sslwirelesssms)](https://packagist.org/packages/kssadi/sslwirelesssms)
-[![Starts](https://img.shields.io/packagist/stars/kssadi/sslwirelesssms)](https://packagist.org/packages/kssadi/sslwirelesssms)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![GitHub license](https://img.shields.io/github/license/KsSadi/SSLWirelessSMS.svg)
+![GitHub top language](https://img.shields.io/github/languages/top/KsSadi/SSLWirelessSMS.svg)
+![Packagist Version](https://img.shields.io/packagist/v/kssadi/sslwirelesssms.svg)
+
 
 ## Features
 
@@ -24,7 +27,6 @@ A Laravel package for integrating SSL Wireless SMS service into your Laravel app
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
-- [Testing](#testing)
 - [Author](#author)
 - [Contributing](#contributing)
 - [License](#license)
@@ -114,9 +116,11 @@ $messageData = [
 $response = SSLWirelessSMS::sendDynamicSms($messageData);
 
 ```
-## Testing
 
-Run the tests with:
+[//]: # (## Testing)
+
+[//]: # ()
+[//]: # (Run the tests with:)
 
 ```bash
 vendor/bin/phpunit
