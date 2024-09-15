@@ -29,12 +29,10 @@ class SSLWirelessSMSServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Publish the config file to the application's config directory
         $this->publishes([
             __DIR__ . '/../config/sslwireless.php' => config_path('sslwireless.php'),
         ], 'config');
-
-        // Optionally, you could add any boot logic here, e.g., custom routes, etc.
     }
+
 
 }

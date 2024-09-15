@@ -3,7 +3,7 @@
 <img style="width: 100%; max-width: 100%;" alt="SSL Wireless SMS Laravel Package" src="/image/ssl-wireless-banner.png" >
 </a>
 
-# SSL Wireless SMS Laravel Package
+# **SSL Wireless SMS Laravel Package**
 <hr>
 
    
@@ -16,13 +16,13 @@ A Laravel package for integrating SSL Wireless SMS service into your Laravel app
 ![Packagist Version](https://img.shields.io/packagist/v/kssadi/sslwirelesssms.svg)
 
 
-## Features
+# Features
 
 - **Single SMS:** Send a single SMS message to a phone number.
 - **Bulk SMS:** Send SMS messages to multiple phone numbers in a single request.
 - **Dynamic SMS:** Send SMS messages dynamically with varying content.
 
-## Table of Contents
+# Table of Contents
 
 - [Installation](#installation)
 - [Configuration](#configuration)
@@ -31,35 +31,29 @@ A Laravel package for integrating SSL Wireless SMS service into your Laravel app
 - [Contributing](#contributing)
 - [License](#license)
 
-## Requirements
+# Requirements
 
 - PHP >= 8.0
 - Laravel >= 10
 
 
-## Installation
+# Installation
 
-1. **Install the package via Composer:**
+1. ### **Install the package via Composer:**
 
    ```bash
    composer require kssadi/sslwirelesssms
-2. **Publish the configuration file:**
+2. ### **Publish the configuration file:**
 
    ```bash
-   php artisan vendor:publish --provider="Kssadi\Sslwirelesssms\SslwirelesssmsServiceProvider" --tag="config"
+   php artisan vendor:publish --provider="KsSadi\SSLWirelessSMS\SSLWirelessSMSServiceProvider" --tag="config"
    ```
+   This will publish the `sslwireless.php` configuration file to your `config` directory.
 
-[//]: # (3. **Publish the controller:**)
 
-[//]: # ()
-[//]: # (      ```bash)
-
-[//]: # (   php artisan vendor:publish --provider="Kssadi\Sslwirelesssms\SslwirelesssmsServiceProvider" --tag="controller")
-
-[//]: # (   ```)
     
-## Configuration
-Add your SSL Wireless SMS credentials to the config/sslwireless.php file:
+# Configuration
+Add your SSL Wireless SMS credentials to the `config/sslwireless.php` file
 
 ```php
 return [
@@ -69,7 +63,7 @@ return [
     'message_type' => env('SSLWIRELESS_MESSAGE_TYPE', 'EN'),
 ];
 ```
-Add these values to your .env file:
+Add these values to your `.env` file:
 
 ```bash
 SSLWIRELESS_API_TOKEN=your_api_token
@@ -77,28 +71,83 @@ SSLWIRELESS_SID=your_sid
 
 ```
 
-## Usage
-Sending a Single SMS:
+# Usage
+With this package, you can send single, bulk, or dynamic SMS messages using a unified method sendSms(). This method simplifies the process by handling all types of SMS through a single function. If you prefer, you can also use separate methods for each type of SMS.
+
+## Unified SMS Sending
+
+The `sendSms()` method allows you to send different types of SMS with a single function, depending on the data you provide:
+
+**Single SMS:** Send a single SMS message to one phone number. <br>
+**Bulk SMS:** Send the same SMS message to multiple phone numbers. <br>
+**Dynamic SMS:** Send different SMS messages to multiple phone numbers. <br>
+
+### `Example: Sending Single SMS`
+
+```bash
+use KsSadi\SSLWirelessSMS\Facades\SSLWirelessSMS;
+
+$response = SSLWirelessSMS::sendSms([
+'phoneNumber' => '1234567890',
+'messageBody' => 'Hello World'
+], 'txn123');
+
+```
+
+### `Example: Sending Bulk SMS`
+
+```bash
+use KsSadi\SSLWirelessSMS\Facades\SSLWirelessSMS;
+
+$response = SSLWirelessSMS::sendSms([
+    'phoneNumbers' => ['1234567890', '0987654321'],
+    'messageBody' => 'Hello, this is a test message for bulk SMS.'
+], 'batch123');
+
+```
+### `Example: Sending Dynamic SMS`
+
+```bash
+use KsSadi\SSLWirelessSMS\Facades\SSLWirelessSMS;
+
+$response = SSLWirelessSMS::sendSms([
+    'messages' => [
+        ['phoneNumber' => '1234567890', 'message' => 'Hello, User 1!', 'sms_id' => 'sms1'],
+        ['phoneNumber' => '0987654321', 'message' => 'Hello, User 2!', 'sms_id' => 'sms2']
+    ]
+]);
+
+```
+
+## Separate Methods
+
+If you prefer to use separate methods for each type of SMS, you can do so as follows:
+
+**`sendSingleSms()`:** Send a single SMS message. <br>
+**`sendBulkSms()`:** Send SMS messages to multiple phone numbers. <br>
+**`sendDynamicSms()`:** Send different SMS messages to multiple phone numbers. <br>
+
+### `Example: Sending Single SMS`
 
 ```php
-use SSLWirelessSMS;
+use KsSadi\SSLWirelessSMS\Facades\SSLWirelessSMS;
 
 $response = SSLWirelessSMS::sendSingleSms('1234567890', 'Hello, world!', 'TX123');
 ```
 
-Sending a Bulk SMS:
+### `Example: Sending a Bulk SMS`
 
 ```php
-use SSLWirelessSMS;
+use KsSadi\SSLWirelessSMS\Facades\SSLWirelessSMS;
 
 $phoneNumbers = ['1234567890', '0987654321'];
 $response = SSLWirelessSMS::sendBulkSms($phoneNumbers, 'Hello, world!', 'TX123');
 ```
 
-Sending a Dynamic SMS:
+### `Example: Sending a Dynamic SMS`
 
 ```php
-use SSLWirelessSMS;
+use KsSadi\SSLWirelessSMS\Facades\SSLWirelessSMS;
 
 $messageData = [
     [
@@ -116,11 +165,6 @@ $messageData = [
 $response = SSLWirelessSMS::sendDynamicSms($messageData);
 
 ```
-
-[//]: # (## Testing)
-
-[//]: # ()
-[//]: # (Run the tests with:)
 
 
 

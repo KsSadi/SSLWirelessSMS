@@ -60,6 +60,75 @@ class SslWirelessSMSClient
 
         return $this->sendRequest($endpoint, $payload);
     }
+
+    /**
+     * Send a single SMS message.
+     *
+     * @param string $phoneNumber
+     * @param string $messageBody
+     * @param string $transactionId
+     * @return string
+     */
+    public function sendSingleSms(string $phoneNumber, string $messageBody, string $transactionId): string
+    {
+        $payload = [
+            'api_token' => $this->apiToken,
+            'sid' => $this->sid,
+            'sms' => $messageBody,
+            'msisdn' => $phoneNumber,
+            'csms_id' => $transactionId,
+        ];
+
+        $endpoint = '/api/v3/send-sms';
+        return $this->sendRequest($endpoint, $payload);
+    }
+
+    /**
+     * Send a bulk SMS message.
+     *
+     * @param array $phoneNumbers
+     * @param string $messageBody
+     * @param string $batchId
+     * @return string
+     */
+    public function sendBulkSms(array $phoneNumbers, string $messageBody, string $batchId): string
+    {
+        $payload = [
+            'api_token' => $this->apiToken,
+            'sid' => $this->sid,
+            'sms' => $messageBody,
+            'msisdn' => $phoneNumbers,
+            'batch_csms_id' => $batchId,
+        ];
+
+        $endpoint = '/api/v3/send-sms/bulk';
+        return $this->sendRequest($endpoint, $payload);
+    }
+
+    /**
+     * Send dynamic SMS messages.
+     *
+     * @param array $messages
+     * @return string
+     */
+    public function sendDynamicSms(array $messages): string
+    {
+        $payload = [
+            'api_token' => $this->apiToken,
+            'sid' => $this->sid,
+            'sms' => array_map(fn($msg) => [
+                'msisdn' => $msg['phone_number'],
+                'text' => $msg['message'],
+                'csms_id' => $msg['sms_id'],
+            ], $messages),
+        ];
+
+        $endpoint = '/api/v3/send-sms/dynamic';
+        return $this->sendRequest($endpoint, $payload);
+    }
+
+
+
     /**
      * Send a request to the API.
      *
