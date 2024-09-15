@@ -19,6 +19,6 @@ class SSLWirelessSMS extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'sslwireless';
+        return 'sslwireless'; // This matches the binding name in the service provider
     }
 }

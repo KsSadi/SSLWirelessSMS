@@ -13,8 +13,10 @@ class SSLWirelessSMSServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Merge the package config file with the application's published config
         $this->mergeConfigFrom(__DIR__ . '/../config/sslwireless.php', 'sslwireless');
 
+        // Register the singleton instance of the client with the IoC container
         $this->app->singleton('sslwireless', function ($app) {
             return new SslWirelessSMSClient();
         });
@@ -27,8 +29,12 @@ class SSLWirelessSMSServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Publish the config file to the application's config directory
         $this->publishes([
             __DIR__ . '/../config/sslwireless.php' => config_path('sslwireless.php'),
         ], 'config');
+
+        // Optionally, you could add any boot logic here, e.g., custom routes, etc.
     }
+
 }
