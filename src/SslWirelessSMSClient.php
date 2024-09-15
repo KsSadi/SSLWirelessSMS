@@ -19,73 +19,47 @@ class SslWirelessSMSClient
         $this->baseUrl = rtrim($this->domain, '/');
     }
 
-
     /**
-     * Send a single SMS message.
+     * Send an SMS message.
      *
-     * @param string $phoneNumber
-     * @param string $messageBody
-     * @param string $transactionId
+     * @param array $data
+     * @param string|null $transactionId
      * @return string
      */
-    public function sendSingleSms(string $phoneNumber, string $messageBody, string $transactionId): string
+    public function sendSms(array $data, string $transactionId = null): string
     {
         $payload = [
             'api_token' => $this->apiToken,
             'sid' => $this->sid,
-            'sms' => $messageBody,
-            'msisdn' => $phoneNumber,
-            'csms_id' => $transactionId,
         ];
 
-        $endpoint = '/api/v3/send-sms';
-        return $this->sendRequest($endpoint, $payload);
-    }
-
-    /**
-     * Send a bulk SMS message.
-     *
-     * @param array $phoneNumbers
-     * @param string $messageBody
-     * @param string $batchId
-     * @return string
-     */
-    public function sendBulkSms(array $phoneNumbers, string $messageBody, string $batchId): string
-    {
-        $payload = [
-            'api_token' => $this->apiToken,
-            'sid' => $this->sid,
-            'sms' => $messageBody,
-            'msisdn' => $phoneNumbers,
-            'batch_csms_id' => $batchId,
-        ];
-
-        $endpoint = '/api/v3/send-sms/bulk';
-        return $this->sendRequest($endpoint, $payload);
-    }
-
-    /**
-     * Send dynamic SMS messages.
-     *
-     * @param array $messages
-     * @return string
-     */
-    public function sendDynamicSms(array $messages): string
-    {
-        $payload = [
-            'api_token' => $this->apiToken,
-            'sid' => $this->sid,
-            'sms' => array_map(fn($msg) => [
-                'msisdn' => $msg['phone_number'],
+        // Determine if it's a single, bulk, or dynamic SMS
+        if (isset($data['phoneNumber']) && isset($data['messageBody'])) {
+            // Single SMS
+            $payload['sms'] = $data['messageBody'];
+            $payload['msisdn'] = $data['phoneNumber'];
+            $payload['csms_id'] = $transactionId;
+            $endpoint = '/api/v3/send-sms';
+        } elseif (isset($data['phoneNumbers']) && isset($data['messageBody'])) {
+            // Bulk SMS
+            $payload['sms'] = $data['messageBody'];
+            $payload['msisdn'] = $data['phoneNumbers'];
+            $payload['batch_csms_id'] = $transactionId;
+            $endpoint = '/api/v3/send-sms/bulk';
+        } elseif (isset($data['messages']) && is_array($data['messages'])) {
+            // Dynamic SMS
+            $payload['sms'] = array_map(fn($msg) => [
+                'msisdn' => $msg['phoneNumber'],
                 'text' => $msg['message'],
                 'csms_id' => $msg['sms_id'],
-            ], $messages),
-        ];
+            ], $data['messages']);
+            $endpoint = '/api/v3/send-sms/dynamic';
+        } else {
+            throw new \InvalidArgumentException('Invalid SMS data format');
+        }
 
-        $endpoint = '/api/v3/send-sms/dynamic';
         return $this->sendRequest($endpoint, $payload);
     }
-
     /**
      * Send a request to the API.
      *
